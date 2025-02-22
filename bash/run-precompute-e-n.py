@@ -9,12 +9,11 @@ from dynamicProgramming import *
 def process_method(sample_jar, inputFile, hasHeader, timeIdx, valueIdx, N, nout, lastParam, 
     method_name,
     png_dir, appendix, 
-    t, v, 
     min_base, writer, outfile):
     
     # 运行采样程序，提取运行时间
     command = [
-        "java", "-jar", sample_jar,
+        "java", "-Xmx10G", "-jar", sample_jar,
         str(inputFile),
         str(hasHeader),
         str(timeIdx),
@@ -45,17 +44,17 @@ def process_method(sample_jar, inputFile, hasHeader, timeIdx, valueIdx, N, nout,
     else:
         print("未找到输出文件路径")
 
-    # 获取在线采样结果
-    df=pd.read_csv(output_file_path,header=0) # 表头为z,x,y
-    t1=df['x']
-    v1=df['y']
-    t1=t1.to_numpy(dtype='float')
-    v1=v1.to_numpy(dtype='float')
-    print(f'【{method_name}:m=】', len(t1)) # 结果点数 预计算模式下等于输入点数
+    # # 获取在线采样结果
+    # df=pd.read_csv(output_file_path,header=0) # 表头为z,x,y
+    # t1=df['x']
+    # v1=df['y']
+    # t1=t1.to_numpy(dtype='float')
+    # v1=v1.to_numpy(dtype='float')
+    # print(f'【{method_name}:m=】', len(t1)) # 结果点数 预计算模式下等于输入点数
     
     # 记录结果
     writer.writerow([method_name, 
-                     nout, len(t),
+                     nout, N,
                      filename, 
                      1 / (runtime+min_base), # for CD diagram, the larger the better
                      runtime # for recording raw runtime，注意此时runtime也是每个不同的seed下都会重新运行测试
@@ -66,6 +65,7 @@ def process_method(sample_jar, inputFile, hasHeader, timeIdx, valueIdx, N, nout,
 
 #################################################################
 ucr_dir="/root/starLightCurve_enlarge"
+# ucr_dir="D:\\datasets\\starLightCurve_enlarge"
 datasetNames = os.listdir(ucr_dir)
 print(len(datasetNames))
 
@@ -86,7 +86,7 @@ height=250
 dpi=72
 
 def getelist(n):
-    eList=[0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 2]
+    eList=[0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.6, 2]
     for i in range(len(eList)):
         eList[i]=int(eList[i]*n)
     return eList
@@ -131,30 +131,41 @@ with open(out, 'w', newline='') as outfile:
         
         nout = 2 # m=2对于BUG来说是预计算模式，计算全部点
 
+        sourceDir=os.path.join(pngDir, appendix, "source")
+        if not os.path.exists(sourceDir):
+            os.makedirs(sourceDir)
+        inputFile=os.path.join(sourceDir, f'{appendix.split(".")[0]}-raw-{len(t_all)}.csv')
+        hasHeader=False
+        df = pd.DataFrame({'t':t_all, 'v': v_all})
+        df.to_csv(inputFile,header=hasHeader,index=False) #  保存为 CSV 文件，不包含表头和索引
+        timeIdx=0
+        valueIdx=1
+
         nList=[0.2, 0.4, 0.6, 0.8, 1]
         for n_per in nList:
             
             n=int(n_per*len(v_all))
             
-            t=t_all[0:n]
-            v=v_all[0:n]
+            # t=t_all[0:n]
+            # v=v_all[0:n]
             
-            print('---------------n_per=',n_per,', n=',len(v),', m=',nout,'----------------')
+            print('---------------n_per=',n_per,', n=',n,', m=',nout,'----------------')
             
-            sourceDir=os.path.join(pngDir, appendix, "source")
-            if not os.path.exists(sourceDir):
-                os.makedirs(sourceDir)
-            inputFile=os.path.join(sourceDir, f'{appendix.split(".")[0]}-raw-{n}.csv')
-            hasHeader=False
-            df = pd.DataFrame({'t':t, 'v': v})
-            df.to_csv(inputFile,header=hasHeader,index=False) #  保存为 CSV 文件，不包含表头和索引
-            timeIdx=0
-            valueIdx=1
+            # sourceDir=os.path.join(pngDir, appendix, "source")
+            # if not os.path.exists(sourceDir):
+            #     os.makedirs(sourceDir)
+            # inputFile=os.path.join(sourceDir, f'{appendix.split(".")[0]}-raw-{n}.csv')
+            # hasHeader=False
+            # df = pd.DataFrame({'t':t, 'v': v})
+            # df.to_csv(inputFile,header=hasHeader,index=False) #  保存为 CSV 文件，不包含表头和索引
+            # timeIdx=0
+            # valueIdx=1
     
             ##################################
             basicName="eBUG"
             sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
-            N=-1 # 代表读每个文件的全部行
+            # N=-1 # 代表读每个文件的全部行
+            N=n
             eList=getelist(len(t_all))
             print(eList)
             for eParam in eList:
@@ -165,7 +176,6 @@ with open(out, 'w', newline='') as outfile:
                 process_method(sample_jar, inputFile, hasHeader, timeIdx, valueIdx, N, nout, lastParam, 
                     method_name,
                     pngDir, appendix, 
-                    t, v, 
                     minBase, writer, outfile)
     
 
