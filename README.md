@@ -36,10 +36,6 @@ export PATH=$JAVA_HOME/bin:$PATH
 source /etc/profile
 ```
 
-### Download eBUG-exp
-
-The structure of this repository is as follows:
-
 
 ### Prepare Datasets
 
@@ -47,24 +43,25 @@ The structure of this repository is as follows:
 2.   Go to `tool` directory, and run `python3 ucr-extract.py /root/UCRArchive_2018 /root/UCRsets-single `, where `/root/UCRArchive_2018` is the directory of the downloaded UCR datasets in the first step, and `/root/UCRsets-single` is the output directory of the concatenated long series. This step will take some time, please be patient.
 3.   Copy the concatenated "Mallat", "MixedShapesRegularTrain", "StarLightCurves" csv into `datasets` directory.
 4.   "steel_REDU" csv is already in the `datasets` directory.
+5.   Go to `jars` directory, and run `kaggle datasets download TimeSeriesVis/exp-jars` to download the necessary JAR files. Due to their large size, these JAR files are hosted externally instead of being included in the Git repository.
+
+## Vis Example
+Go to `bash` directory, and run `run-ucr-final-singleDataset-use.py`
 
 ## UCR Bench
 
 Go to `bash` directory, and run `run-ucr-final.py`.
-
-## Vis Example
-Go to `bash` directory, and run `run-ucr-final-singleDataset-use.py`
 
 
 ## Vary e
 Go to `bash` directory, and run `run-parameter-e-use.py`
 
 
-## Vary-n
+## Vary n
 1. Go to `tool` directory, run `enlarge.py` to prepare `/root/starLightCurve_enlarge/StarLightCurves_enlarge.csv`.
 2. Go to `bash` directory, and run `bash/run-precompute-e-n.py`.
 
-## Vary-m
+## Vary m
 
 This experiments involves communication between two nodes and is a bit more complicated than the previous sections in terms of installation preparation. Assume that the server and client nodes have the following IP addresses, usernames, and passwords.
 
@@ -123,7 +120,7 @@ java -jar sample_eBUG-jar-with-dependencies.jar "/root/starLightCurve_enlarge/St
    - Run the following command to write raw data:
     ```shell
    java -jar WritePrecomputedTable-jar-with-dependencies.jar "root.sg.d5" "ms" 10000 "/root/starLightCurve_enlarge/StarLightCurves_enlarge.csv" -1 false false
-   ```
+    ```
    - Go to `vary-m/iotdb-server-0.12.4/sbin`, and run `stop-server.sh`.
 
 
