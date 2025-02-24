@@ -43,7 +43,7 @@ source /etc/profile
 2.   Go to `tool` directory, and run `python3 ucr-extract.py /root/UCRArchive_2018 /root/UCRsets-single `, where `/root/UCRArchive_2018` is the directory of the downloaded UCR datasets in the first step, and `/root/UCRsets-single` is the output directory of the concatenated long series. This step will take some time, please be patient.
 3.   Copy the concatenated "Mallat", "MixedShapesRegularTrain", "StarLightCurves" csv into `datasets` directory.
 4.   "steel_REDU" csv is already in the `datasets` directory.
-5.   Go to `jars` directory, and run `kaggle datasets download TimeSeriesVis/exp-jars` to download the necessary JAR files. Due to their large size, these JAR files are hosted externally instead of being included in the Git repository.
+5.   Go to `jars` directory, and run `kaggle datasets download xxx123456789/ebug-jars` to download the necessary JAR files. Due to their large size, these JAR files are hosted externally instead of being included in the Git repository.
 
 ## Vis Example
 Go to `bash` directory, and run `run-ucr-final-singleDataset-use.py`
