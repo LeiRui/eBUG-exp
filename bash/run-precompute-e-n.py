@@ -163,7 +163,7 @@ with open(out, 'w', newline='') as outfile:
     
             ##################################
             basicName="eBUG"
-            sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+            sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
             # N=-1 # 代表读每个文件的全部行
             N=n
             eList=getelist(len(t_all))

@@ -150,7 +150,7 @@ with open(out, 'w', newline='') as outfile:
         zoom_factor = 10
         min_shift = 0.1
         max_shift = 0.5
-        jar_path="experiments-tool.jar"
+        jar_path="../jars/experiments-tool.jar"
 
         seedMap={}
         seedRange=1
@@ -204,7 +204,7 @@ with open(out, 'w', newline='') as outfile:
         ##################################
         # for eBUG family
         basicName="eBUG"
-        sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+        sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
         N=-1 # 代表读每个文件的全部行
         for eParam in [0,5000,10000_0000]:
             lastParam = eParam
@@ -227,7 +227,7 @@ with open(out, 'w', newline='') as outfile:
         ##################################
         # for BUYdiff family
         basicName="BUYdiff"
-        sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+        sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
         N=-1 # 代表读每个文件的全部行
         for error in ["L_infy","L2","L1"]:
             lastParam = error
@@ -250,7 +250,7 @@ with open(out, 'w', newline='') as outfile:
         ##################################
         # for MinMax bucket family
         basicName="minmax"
-        sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+        sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
         N=-1 # 代表读每个文件的全部行
         for bucket in ["frequency","width"]:
             lastParam = bucket
@@ -274,7 +274,7 @@ with open(out, 'w', newline='') as outfile:
         ##################################
         # for fsw 
         basicName="fsw"
-        sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+        sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
         N=-1 # 代表读每个文件的全部行
         tolerantRatio=0.001
         lastParam = tolerantRatio
@@ -298,7 +298,7 @@ with open(out, 'w', newline='') as outfile:
         ##################################
         # for rdp
         basicName="rdp"
-        sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+        sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
         N=-1 # 代表读每个文件的全部行
         tolerantRatio=0.001
         lastParam = tolerantRatio
@@ -322,7 +322,7 @@ with open(out, 'w', newline='') as outfile:
         ##################################
         # for swab
         basicName="swab"
-        sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+        sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
         N=-1 # 代表读每个文件的全部行
         tolerantRatio=0.01
         lastParam = tolerantRatio
@@ -346,7 +346,7 @@ with open(out, 'w', newline='') as outfile:
         ##################################
         # for swab ad
         basicName="swab_ad"
-        sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+        sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
         N=-1 # 代表读每个文件的全部行
         tolerantRatio=0.01
         lastParam = tolerantRatio

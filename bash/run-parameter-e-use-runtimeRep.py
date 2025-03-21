@@ -146,13 +146,13 @@ with open(out, 'w', newline='') as outfile:
         q = 0.1
         if "steel_" in appendix:
             zoom_factor = 5
-            jar_path="experiments-tool-ZI.jar"
+            jar_path="../jars/experiments-tool-ZI.jar"
         elif "StarLightCurves" in appendix:
             zoom_factor = 10
-            jar_path="experiments-tool.jar"
+            jar_path="../jars/experiments-tool.jar"
         else:
             zoom_factor = 5
-            jar_path="experiments-tool.jar"
+            jar_path="../jars/experiments-tool.jar"
         min_shift = 0.1
         max_shift = 0.5
 
@@ -173,7 +173,7 @@ with open(out, 'w', newline='') as outfile:
 
         ##################################
         basicName="eBUG"
-        sample_jar=f"sample_{basicName}-jar-with-dependencies.jar"
+        sample_jar=f"../jars/sample_{basicName}-jar-with-dependencies.jar"
         N=-1 # 代表读每个文件的全部行
         eList=getelist(len(t))
         print(eList)

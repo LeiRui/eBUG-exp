@@ -82,14 +82,14 @@ def process_method(sample_jar, inputFile, hasHeader, timeIdx, valueIdx, N, nout,
 
 
 #################################################################
-# ucr_dir="/root/UCRsets-single/UCRsets-single"
-ucr_dir="D://datasets//regular//UCRsets-single//UCRsets-single"
+ucr_dir="/root/UCRsets-single/UCRsets-single"
+# ucr_dir="D://datasets//regular//UCRsets-single//UCRsets-single"
 datasetNames = os.listdir(ucr_dir)
 print(len(datasetNames))
 
 current_time = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-# pngDir=f"/root/tmpUCR_{current_time}"
-pngDir=f"D://tmp//tmpUCR_{current_time}"
+pngDir=f"/root/tmpUCR_{current_time}"
+# pngDir=f"D://tmp//tmpUCR_{current_time}"
 if not os.path.exists(pngDir):
     os.makedirs(pngDir)
 print(pngDir)
