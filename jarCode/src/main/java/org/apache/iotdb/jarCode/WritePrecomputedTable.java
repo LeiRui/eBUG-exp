@@ -246,7 +246,7 @@ public class WritePrecomputedTable {
                 double[] double_sensor = (double[]) values[1];
                 double_sensor[row] = pre_v;
             } else {
-                int time = Integer.parseInt(split[0]);
+                long time = (long) Double.parseDouble(split[0]);
                 double value = Double.parseDouble(split[1]);
 
                 timestamps[row] = time;
