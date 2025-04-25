@@ -96,24 +96,26 @@ public class WritePrecomputedTable {
             String createSql = String.format("CREATE TIMESERIES %s.%s WITH DATATYPE=%s, ENCODING=%s",
                     device,
                     measurements[0],
-                    TSDataType.INT64,
-                    "TS_2DIFF"
+                    TSDataType.DOUBLE,
+//                    TSDataType.INT64,
+                    "PLAIN"
+//                    "TS_2DIFF"
             );
             session.executeNonQueryStatement(createSql);
 
             createSql = String.format("CREATE TIMESERIES %s.%s WITH DATATYPE=%s, ENCODING=%s",
                     device,
                     measurements[1],
-                    TSDataType.DOUBLE,
-                    "GORILLA"
+                    TSDataType.DOUBLE, "PLAIN"
+//                    "GORILLA"
             );
             session.executeNonQueryStatement(createSql);
         } else {
             String createSql = String.format("CREATE TIMESERIES %s.%s WITH DATATYPE=%s, ENCODING=%s",
                     device,
                     measurements[2],
-                    TSDataType.DOUBLE,
-                    "GORILLA"
+                    TSDataType.DOUBLE, "PLAIN"
+//                    "GORILLA"
             );
             session.executeNonQueryStatement(createSql);
         }
@@ -195,13 +197,19 @@ public class WritePrecomputedTable {
 
         List<MeasurementSchema> schemaList = new ArrayList<>();
         if (precompute) {
+//            schemaList.add(
+//                    new MeasurementSchema(measurements[0], TSDataType.INT64, TSEncoding.valueOf("TS_2DIFF")));
+//            schemaList.add(
+//                    new MeasurementSchema(measurements[1], TSDataType.DOUBLE, TSEncoding.valueOf("GORILLA")));
             schemaList.add(
-                    new MeasurementSchema(measurements[0], TSDataType.INT64, TSEncoding.valueOf("TS_2DIFF")));
+                    new MeasurementSchema(measurements[0], TSDataType.DOUBLE, TSEncoding.valueOf("PLAIN")));
             schemaList.add(
-                    new MeasurementSchema(measurements[1], TSDataType.DOUBLE, TSEncoding.valueOf("GORILLA")));
+                    new MeasurementSchema(measurements[1], TSDataType.DOUBLE, TSEncoding.valueOf("PLAIN")));
         } else {
+//            schemaList.add(
+//                    new MeasurementSchema(measurements[2], TSDataType.DOUBLE, TSEncoding.valueOf("GORILLA")));
             schemaList.add(
-                    new MeasurementSchema(measurements[2], TSDataType.DOUBLE, TSEncoding.valueOf("GORILLA")));
+                    new MeasurementSchema(measurements[2], TSDataType.DOUBLE, TSEncoding.valueOf("PLAIN")));
         }
 
 
@@ -234,13 +242,13 @@ public class WritePrecomputedTable {
 
             if (precompute) {
                 int idx = Integer.parseInt(split[0]);
-                long pre_t = (long) Double.parseDouble(split[1]);
+                double pre_t = Double.parseDouble(split[1]);
                 double pre_v = Double.parseDouble(split[2]);
 
                 timestamps[row] = idx;
 
                 // pre_t
-                long[] long_sensor = (long[]) values[0];
+                double[] long_sensor = (double[]) values[0];
                 long_sensor[row] = pre_t;
                 // pre_v
                 double[] double_sensor = (double[]) values[1];
